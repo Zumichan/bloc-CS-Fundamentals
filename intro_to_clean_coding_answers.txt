@@ -1,0 +1,181 @@
+#### Exercises
+
+1. In your own words, explain what clean code is and why it is important.
+
+A) Clean code is code that is easy to understand, read, and maintain. Having clean, high-quality code is important when working with other developers on a large-scale, complex applications.
+
+2. Read this article about Toyota and their use of bad code. Although you may not yet understand all of the topics discussed, think about another commonly used object that relies on computers and explain what would happen if the code was not created to an acceptable standard.
+
+A) Traffic Light Control System. Traffic lights are now controlled by a programmable logic controllers. They are low-power computer that monitors an input circuit and controls the output based on the value of the input. If the code was not created to an acceptable standard, it can create a chaos in traffic such as traffic jam, accidents, and death.
+
+
+3. Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+
+A) I don't consider this as clean code.
+-Naming: do (x,y), z don't tell what this function does and what those variables are.
+-Comments: Too many comments. They will not be necessary to understand the code.
+-Nesting: It's not easy to see a hierarchy in code.
+
+(Before)
+
+FUNCTION do(x, y)              // Creating a new function
+ IF y = "F" THEN               // Check if y is equal "F"
+ SET z to (x−32) * (5/9)       // Formula to convert degrees fahrenheit to celsius
+ PRINT z                       // Print result
+ ELSE IF y = "C" THEN          // If y not equal to "F", check if equal to "C"
+ SET z to x * 1.8000 + 32.00   // Formula to convert degrees celsius to fahrenheit
+ PRINT z                       // Print result
+ END IF
+END FUNCTION
+
+(After)
+
+FUNCTION convertTemp(temp, scale)              
+  IF scale = "F" THEN               
+    SET result to (temp−32) * (5/9)       
+    PRINT result                       
+  ELSE IF scale = "C" THEN          
+    SET result to temp * 1.8000 + 32.00   
+    PRINT result                     
+  END IF
+END FUNCTION
+
+4. Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+
+A) I consider this as clean code.
+-Naming: Variable and function names are meaningful and easy to understand.
+-Nesting: Code blocks are nested appropriately
+
+FUNCTION calcPercent(sum, total)
+ IF NOT(total = 0) THEN
+     SET percentage to sum / total * 100
+ ELSE
+   PRINT "Sorry, cannot divide by 0"
+ END IF
+
+ PRINT percentage
+END FUNCTION
+
+5. Using pseudocode, refactor the code for the following examples using the principles you have learned in this checkpoint.
+
+a. The following function prints the subtotal of a customer's transaction and receives payment accordingly.
+
+FUNCTION checkOutCustomer(subTotal, discountRate, paymentType)
+  SET total= subTotal * discountRate + (subTotal * tax)
+    PRINT "Your total due is: " + total
+
+  IF paymentType = 'CASH' THEN
+    CALL getPayment RETURNING amount
+      PRINT "Change due: " + amount - total
+  ELSE IF paymentType = 'CREDIT CARD' THEN
+    CALL getPayment RETURNING amount
+      PRINT "Your credit card has been charged: " + total
+  END IF
+END FUNCTION
+
+b. The following function checks out a book if there are no issues with the guest's account.
+
+FUNCTION checkoutBook(book, guest)
+  IF guest.accountActive THEN
+    IF NOT(guest.hasOverdueBooks) THEN
+      IF guest.outstandingFees = 0 THEN
+        CALL updateStatus WITH book and guest
+          PRINT "Your books have been issued."
+      END IF
+    END IF
+  ELSE
+    PRINT "Unable to check out book."
+  END IF
+END FUNCTION
+
+FUNCTION updateStatus(book,guest)
+  APPEND book to guest.books
+    SET book.status to "Checked Out"
+END FUNCTION
+
+C. The following class is a code snippet that should support the transactions a customer can perform at an ATM.
+
+CLASS Balance
+  FUNCTION displayBalance
+    PRINT balance
+  END FUNCTION
+END CLASS
+
+CLASS Deposit
+  FUNCTION deposit(amount)
+    SET balance to balance + amount
+  END FUNCTION
+END CLASS
+
+CLASS Withdraw
+  FUNCTION withdraw(amount)
+    IF balance > amount THEN
+      SET balance to balance - amount
+  END FUNCTION
+END CLASS
+
+CLASS Offer
+  FUNCTION creditCardOffer
+    IF NOT(customer.hasCreditCard) THEN
+      CALL offerCreditCard
+  END FUNCTION
+END CLASS
+
+CLASS Status
+  FUNCTION checkStatus
+    IF NOT(customer.hasCheckingAccount) THEN
+      CALL offerCheckingAccount
+  END FUNCTION
+END CLASS
+
+ ....
+ ....
+ ....
+
+END CLASS
+
+#### Programming Questions
+
+6. Square
+
+```
+function isPerfectSquare(array){
+  let sum = 0;
+  for (let i=0; i<array.length; i++){
+    sum += array[i];
+  } if(sum % 1 === 0){
+    return Math.sqrt(sum);
+  }else{
+    return sum;
+  }
+}
+
+```
+
+7. Duplicate
+```
+function isDuplicate(array){
+  let sortedArray = array.slice().sort();
+  for (let i=0; i<sortedArray.length-1; i++){
+    if(sortedArray[i] === sortedArray[i+1]){
+      return true;
+    }
+  }
+   return false;
+}
+
+```
+
+8. Anagram
+
+```
+function isAnagram(stringOne, stringTwo){
+  let sortedStringOne = stringOne.split("").sort().join("");
+  let sortedStringTwo = stringTwo.split("").sort().join("");
+  if(sortedStringOne===sortedStringTwo){
+    return true;
+  }
+  return false; 
+}
+```
+
