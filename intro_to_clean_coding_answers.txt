@@ -8,7 +8,6 @@ A) Clean code is code that is easy to understand, read, and maintain. Having cle
 
 A) Traffic Light Control System. Traffic lights are now controlled by a programmable logic controllers. They are low-power computer that monitors an input circuit and controls the output based on the value of the input. If the code was not created to an acceptable standard, it can create a chaos in traffic such as traffic jam, accidents, and death.
 
-
 3. Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
 
 A) I don't consider this as clean code.
