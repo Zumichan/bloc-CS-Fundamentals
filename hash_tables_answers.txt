@@ -1,0 +1,42 @@
+1. What is a hash table?
+
+A) A type of data structure that stores each value by linking it to a unique key, forming key-value pairs, just like JavaScript objects.
+
+2. What is hashing?
+
+A) It is a process of converting string keys into numerical indices (hash code). We need this hashing process because arrays can only be indexed by numbers.
+
+3. How does a hash table store data?
+
+A) It stores key-value pairs by placing them at a particular location in an array maintained internally in the hash table.
+
+4. How are hash tables and objects different?
+
+A) In case of JavaScript, they are almost the same. Hash tables are a subset of objects. 
+If your data is a static number of distinct values of different types, then an object is the optimal choice. You can use a hash table when your data contains a variable number of consistently formatted values, each with an identifier.
+
+5. Determine whether you would use a hash table or an object to store each of the following pieces of data:
+-A list of pets and their unique names.
+A) Hash Table
+
+-The name, age, and the birthday of your best friend.
+A) Object
+
+-The name and location of every company in a given city.
+A) Hash Table
+
+-All of the books checked out from a library by a particular individual.
+A) Hash Table
+
+-The primary and secondary phone numbers for a contact.
+A) Object
+
+6. Build a system that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers. Store this information in a hash table.
+
+
+
+7. Build a system that allows a store owner to track their store's inventory using a hash table for storage.
+
+
+8. Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
+
