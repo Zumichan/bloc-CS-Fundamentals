@@ -43,31 +43,80 @@ function reverseWord(word){
 2. Implement the pop method of a stack using one queue. Make a FIFO data structure mirror the functionality of a LIFO data structure. Since the internal list is not the same as defined in the checkpoint, it may help to rewrite the pseudocode first.
 To delete an item, take all of the elements in the queue one at a time and put them at the end of the queue, except for the last one which should be removed and returned.
 
-FUNCTION pop
-  SET new array newQueue
-  SET new array removedElement
-  IF the index is not equal to the last index THEN
-    STORE the value in newQueue
-  ELSE
-    STORE the value in removedElement
-  RETURN removedElement
-END FUNCTION
+CREATE CLASS Queue
+  CREATE constructor
+    DEFINE  list
+
+  FUNCTION enqueue(element)
+    APPEND element to the end of the list
+  END FUNCTION
+
+  FUNCTION dequeue()
+    REMOVE FIRST element of list from list
+    RETURN removed element
+  END FUNCTION
+END CLASS
+
+CREATE CLASS Fifo
+  CREATE constructor
+  Define queue, count
+
+  FUNCTION push(element)
+    APPEND element to the end of the list 
+    INCREMENT count
+  END FUNCTION
+
+  FUNCTION pop()
+    FOR i=0 to this.count-1
+      MOVE all of the elements in the queue one at a time except for the last one to the  end of the queue
+    END FOR
+    DECREMENT count
+    RETURN the last element
+  END FUNCTION
+END CLASS
 
 ```
-function pop(queue){
-  let newQueue=[];
-  let removedElement=[];
-  for (let i=0; i<queue.length;i++){
-    if(i!==queue.length-1){
-      newQueue.push(queue[i]);
-    }else{
-      removedElement.push(queue[i]);
-    }
+class Queue {
+  constructor(){
+    this.list=[];
   }
-return removedElement;
+
+  enqueue(element){
+    this.list.push(element);
+  }
+
+  dequeue(){
+    return this.list.shift();
+  }
 }
 
-console.log(pop([1,2,3,4,5]));
+class Fifo {
+  constructor(){
+    this.queue=new Queue;
+    this.count=0;//in order to check when the queue is empty
+  }
+  
+  push(element){
+    this.queue.enqueue(element);
+    this.count++;
+  }
+
+  pop(){
+    for(let i=0;i<this.count-1;i++){
+      this.queue.enqueue(this.queue.dequeue());
+    }
+    this.count--;
+    return this.queue.dequeue();
+  }
+}
+
+const fifo=new Fifo();
+fifo.push(1);
+fifo.push(2);
+console.log(fifo.pop());
+fifo.push(3);
+console.log(fifo.pop());
+console.log(fifo.pop());
 ```
 
 3. Implement the enqueue and dequeue methods defined in the checkpoint inside your own Queue class.
@@ -96,5 +145,6 @@ queue.enqueue(5)
 console.log(queue.dequeue())
 console.log(queue.dequeue())
 console.log(queue.dequeue())
+
 ```
 
