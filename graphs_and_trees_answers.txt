@@ -39,7 +39,7 @@ For the following questions, describe in words how you could solve the problem a
 
 Example: The value 10 exists in the tree. The value 23 does not exist in the tree.
 
-I will write a class which constructs a binary search tree (add) and check whether the value exists within the tree (search). Search first checks if the value matches with the root. If not and the value is less than the root (or the current node in a recursive step) and there is a left sub tree, we travel to the left, otherwise travel to right until the value matches to the node.
+I will write a class which constructs a binary search tree and check whether the value exists within the tree (search). Search first checks if the value matches with the root. If not and the value is less than the root (or the current node in a recursive step) and there is a left sub tree, we travel to the left, otherwise travel to right until the value matches to the node.
 
 ```
 class BinarySearchTree {
@@ -98,7 +98,7 @@ console.log(bst.search(23));//false
 
 Example: The distance between the nodes 4 and 10 is 4. The distance between the nodes 8 and 10 is 1. The distance between the nodes 1 and 14 is 4.
 
-I will write a class which constructs a binary search tree (add) and calculate the distance between 2 nodes. To find the distance between 2 nodes, I will find the lowest common ancestor (LCA) of the 2 nodes. Then calculate the distance between LCA and n1 and LCA and n2 and add them together.
+I will write a class which constructs a binary search tree and calculate the distance between 2 nodes. To find the distance between 2 nodes, I will find the lowest common ancestor (LCA) of the 2 nodes. Then calculate the distance between LCA and n1 and LCA and n2 and add them together.
 
 ```
 class BinarySearchTree {
