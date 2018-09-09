@@ -39,7 +39,174 @@ For the following questions, describe in words how you could solve the problem a
 
 Example: The value 10 exists in the tree. The value 23 does not exist in the tree.
 
+I will write a class which constructs a binary search tree (add) and check whether the value exists within the tree (search). Search first checks if the value matches with the root. If not and the value is less than the root (or the current node in a recursive step) and there is a left sub tree, we travel to the left, otherwise travel to right until the value matches to the node.
+
+```
+class BinarySearchTree {
+  constructor(value, left = null, right = null) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+
+  add(value) {
+    if (value < this.value) {
+      if (this.left) {
+        this.left.add(value);
+      } else {
+        this.left = new BinarySearchTree(value);
+      }
+    } else if (value > this.value) {
+      if (this.right) {
+        this.right.add(value);
+      } else {
+        this.right = new BinarySearchTree(value);
+      }
+    }
+  }
+
+  search(value) {
+    if (value == this.value){
+      return true;
+    }
+    if (value < this.value && this.left){
+      return this.left.search(value);
+    }
+    if (value > this.value && this.right){
+      return this.right.search(value);
+    }
+    return false;
+  }
+}
+
+var bst = new BinarySearchTree(8);
+bst.add(10);
+bst.add(3);
+bst.add(6);
+bst.add(1);
+bst.add(14);
+bst.add(7);
+bst.add(4);
+bst.add(13);
+
+console.log(bst.search(10));//true
+console.log(bst.search(23));//false
+
+```
+
 2. Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
 
 Example: The distance between the nodes 4 and 10 is 4. The distance between the nodes 8 and 10 is 1. The distance between the nodes 1 and 14 is 4.
+
+I will write a class which constructs a binary search tree (add) and calculate the distance between 2 nodes. To find the distance between 2 nodes, I will find the lowest common ancestor (LCA) of the 2 nodes. Then calculate the distance between LCA and n1 and LCA and n2 and add them together.
+
+```
+class BinarySearchTree {
+  constructor(value, left = null, right = null) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+
+  add(value) {
+    if (value < this.value) {
+      if (this.left) {
+        this.left.add(value);
+      } else {
+        this.left = new BinarySearchTree(value);
+      }
+    } else if (value > this.value) {
+      if (this.right) {
+        this.right.add(value);
+      } else {
+        this.right = new BinarySearchTree(value);
+      }
+    }
+  }
+
+  search(value) {
+    if (value == this.value){
+      return this;
+    }
+    if (value < this.value && this.left){
+      return this.left.search(value);
+    }
+    if (value > this.value && this.right){
+      return this.right.search(value);
+    }
+    return null;
+  }
+
+  lowestCommonAncestor(n1, n2) {
+    var current = this;
+    if (n1 > n2) {
+      //Swap values to make sure n1<=n2
+      var tmp = n1;
+      n1 = n2;
+      n2 = tmp;
+    }
+    while(true) {
+      if (current.value == n1 || current.value == n2) {
+        return current;
+      }
+      //If n1>current meaning n2 is also greater than the current
+      if (n1 > current.value) {
+        current = current.right;
+      }
+      //If n2<current meaning n1 is also smaller than the current
+      else if (n2 < current.value) {
+        current = current.left;
+      }
+      //n1 and n2 are on the opposite sides and root is the LCA
+      else {
+        return current;
+      }
+    }
+    return null;
+  }
+
+  getDepth(current, n) {
+    var depth = 0;
+    while (current) {
+      if (current.value == n.value){
+        return depth;
+      }
+      if (current.value > n.value){
+        current = current.left;
+        depth+=1;
+      }
+      else if (current.value < n.value){
+        current = current.right;
+        depth+=1;
+      }
+    }
+    return null;
+  }
+
+  distance(n1, n2) {
+    var node1 = this.search(n1);
+    var node2 = this.search(n2);
+    var ancestor = this.lowestCommonAncestor(node1, node2);
+    var depth1 = this.getDepth(ancestor, node1);
+    var depth2 = this.getDepth(ancestor, node2);
+    return depth1 + depth2;
+  }
+}
+
+var bst = new BinarySearchTree(8);
+bst.add(10);
+bst.add(3);
+bst.add(6);
+bst.add(1);
+bst.add(14);
+bst.add(7);
+bst.add(4);
+bst.add(13);
+
+console.log(bst.distance(4, 10));//4
+console.log(bst.distance(8, 10));//1
+console.log(bst.distance(1, 14));//4
+
+```
+
 
