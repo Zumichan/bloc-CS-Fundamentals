@@ -17,13 +17,157 @@ Before beginning to code, write out a plan explaining how to solve the question.
 
 1. The linked list push function should take a value, create a node, and add it to the end of a list. Below is pseudocode for a push function for a singly linked list. However, there is something wrong with it. Submit both an explanation of the bug and a functional implementation of the method.
 
+(Pseudocode)
+
+FUNCTION push(element)
+CREATE node
+SET node.value TO element
+SET node.next TO null
+
+IF the head node does not exist
+ THEN SET head TO node
+ELSE
+ SET current TO head
+ //There is where the condition is missing. We need to find where the tail is, then add the current node.
+ //SET current.next to node
+ WHILE current.next exists
+   SET current TO current.next
+ Otherwise SET current.next TO node
+ END WHILE
+END IF
+END FUNCTION
+
+(Code)
+```
+function push(element){
+    var node = {
+       value: element,
+       next: null
+    }
+    if(!this.head){
+      this.head = node;      
+    }
+    else{
+      current = this.head;
+      while(current.next){
+        current = current.next;
+      }
+      current.next = node;
+    }
+  }
+
+```
+
 2. Given an unsorted singly linked list, remove all duplicates from the linked list.
 Example
 Input: a -> c -> d -> d -> a
 Output: a -> c -> d
 
+I will write a class which constructs the linked list from an array, and with a function which creates a hash table. If the node appears in the hash table, it will skip the node next and returns the list with no duplicates.
+
+```
+class LinkedList {
+  constructor(data,next) {
+    this.data=data;
+    this.next=next;
+  }
+}
+
+//Create a linked list from an array
+function linkedListFromArray(arr){
+  //last element in the linked list has to be null
+  var list = null;
+  for (i = arr.length-1; i>=0; i--) {  
+    //add the current element of the array pointing at the head of the linked list
+    list = new LinkedList(arr[i], list);
+  }
+  return list;
+}
+
+function removeDuplicates(list, appeared=[]) {
+  //default for appeared is []
+  if (!list) {
+    return null
+  } else if (list.data in appeared) {
+    return removeDuplicates(list.next, appeared);
+  } else {
+    //create a hash table
+    appeared[list.data] = 1;
+    return new LinkedList(list.data, removeDuplicates(list.next, appeared))
+  }
+}
+
+//To display the result to the console
+function dumpList(list) {
+  if (!list){
+    return "null"
+  } else {
+    return String(list.data) + "->" + dumpList(list.next);
+  }
+}
+
+var l = linkedListFromArray(['a','c','d','d','a','e'])
+console.log(dumpList(l));//a->c->d->d->a->e->null
+var rdlist = removeDuplicates(l);
+console.log(dumpList(rdlist));//a->c->d->e->null
+
+```
 3. Given an unsorted singly linked list, reverse it.
 Example
 Input: a -> b -> c -> d
 Output: d -> c -> b -> a
+
+I will write a class which constructs the linked list, and  with a function which changes the direction of an arrow in linked list by assigning previous to each nodes and returns the reversed linked list.
+
+```
+class Node{
+  constructor(element, next=null){
+    this.element=element;
+    this.next=next
+  }
+}
+
+class LinkedList{
+  constructor(){
+    this.head = null;
+  }
+  
+  push(element){
+    var node=new Node(element);
+    if(!this.head){
+      this.head = node;      
+    }
+    else{
+      var current = this.head;
+      while(current.next){
+        current = current.next;
+      }
+      current.next = node;
+    }
+  }
+ 
+  //Changes the direction of an arrow in linkedlist by assigning prev to each nodes.
+  reverseNodes(node, prev) {
+    var newNode = new Node(node.element, prev);
+    if (node.next){
+      return this.reverseNodes(node.next, newNode)
+    } else {
+      return newNode;
+    }
+  }
+
+  //returns the reversed linked list
+  reversedList() {
+    return this.reverseNodes(this.head, null);
+  }
+}
+
+var list = new LinkedList();
+list.push('a');
+list.push('b');
+list.push('c');
+list.push('d');
+console.log(list.reversedList());
+
+```
 
