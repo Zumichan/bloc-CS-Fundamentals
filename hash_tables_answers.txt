@@ -36,7 +36,7 @@ A) Object
 ```
 class CustomerData {
   constructor() {
-    this.hash = []
+    this.hash = {}
   }
   set(phonenumber,name,address) {
     this.hash[phonenumber] = [name,address];
@@ -62,7 +62,7 @@ console.log(customers.get("456-123-789")); //[ 'Joe', '1510 Banana Rd Fruits Val
 ```
 class TrackInventory {
   constructor() {
-    this.hash = []
+    this.hash = {}
   }
 
   set(item, inventory) {
@@ -102,7 +102,7 @@ console.log(inventory.get('Banana'));//6
 ```
 class SearchNewspaper{
   constructor() {
-    this.hash = []
+    this.hash = {}
   }
 
   set(publisher, publicationDate) {
